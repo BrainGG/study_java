@@ -8,14 +8,14 @@ package com.brain.study.patterns.builder;
  * @author Brain
  * @date 2014-12-7
  */
-public class ConcrectBuilder extends Builder {
+public class ConcreteBuilder extends Builder {
 
 	private Product product = new Product();
 
 	/**
 	 * 
 	 */
-	public ConcrectBuilder() {
+	public ConcreteBuilder() {
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.brain.study.patterns.adapter;
+package com.brain.study.patterns.adapter2;
 
 /**
  * Client
@@ -11,11 +11,11 @@ package com.brain.study.patterns.adapter;
 public class Client {
 
 	public static void main(String[] args) {
-		ITarget target = new Adapter();
+		Target target = new Adapter(new Adaptee());
 		new Client().needTargetInterface(target);
 	}
 	
-	private void needTargetInterface(ITarget target) {
+	private void needTargetInterface(Target target) {
 		target.request();
 	}
 

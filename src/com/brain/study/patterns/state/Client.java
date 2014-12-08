@@ -1,10 +1,6 @@
 package com.brain.study.patterns.state;
 
 public class Client {
-
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		Context context = new Context();
 		State state = new ConcreteStateA();

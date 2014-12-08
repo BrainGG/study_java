@@ -4,7 +4,7 @@
 package com.brain.study.patterns.strategy;
 
 /**
- * State
+ * Strategy
  * @author Brain
  * @date 2014-12-8
  */

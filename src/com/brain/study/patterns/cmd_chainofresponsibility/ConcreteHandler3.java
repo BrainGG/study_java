@@ -4,7 +4,7 @@
 package com.brain.study.patterns.cmd_chainofresponsibility;
 
 /**
- * ConcreteHandler
+ * ConcreteHandler3
  * @author Brain
  * @date 2014-12-8
  */

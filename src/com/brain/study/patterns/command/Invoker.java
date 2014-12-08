@@ -18,6 +18,8 @@ public class Invoker {
 	//**sort, remove, undo and log for command object **
 	
 	public void execute() {
-		command.execute();
+		if (this.command != null) {
+			command.execute();
+		}
 	}
 }

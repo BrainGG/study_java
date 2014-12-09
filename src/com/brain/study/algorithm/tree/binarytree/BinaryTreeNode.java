@@ -21,6 +21,17 @@ public class BinaryTreeNode<T> {
 		// TODO Auto-generated constructor stub
 	}
 
+	public BinaryTreeNode(T data) {
+		this(data, null, null);
+	}
+
+	public BinaryTreeNode(T data, BinaryTreeNode<T> leftRoot,
+			BinaryTreeNode<T> rightRoot) {
+		this.data = data;
+		this.leftRoot = leftRoot;
+		this.rightRoot = rightRoot;
+	}
+
 	public BinaryTreeNode<T> getLeftRoot() {
 		return leftRoot;
 	}

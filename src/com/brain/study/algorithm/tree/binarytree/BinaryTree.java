@@ -20,6 +20,48 @@ public class BinaryTree<T> {
 		this.visitListener = visitListener;
 	}
 
+	public BinaryTree() {
+
+	}
+
+	public BinaryTree<T> addNode(T data) {
+		if (root == null) {
+			root = new BinaryTreeNode<T>(data);
+		}
+
+		return this;
+	}
+
+	/**
+	 * 
+	 * @param dataQueue
+	 */
+	public void buildTree(LinkedList<T> dataQueue) {
+		root = createTree(root, dataQueue);
+	}
+
+	/**
+	 * 
+	 * @param node
+	 * @param dataQueue
+	 * @return
+	 */
+	private BinaryTreeNode<T> createTree(BinaryTreeNode<T> node,
+			LinkedList<T> dataQueue) {
+		if (dataQueue == null) {
+			return null;
+		}
+		T data = dataQueue.poll();
+		if (data == null) {
+			return null;
+		} else {
+			node = new BinaryTreeNode<T>(data);
+			node.setLeftRoot(createTree(node.getLeftRoot(), dataQueue));
+			node.setRightRoot(createTree(node.getRightRoot(), dataQueue));
+			return node;
+		}
+	}
+
 	/**
 	 * Gets node count in the binary tree
 	 * 
@@ -68,7 +110,9 @@ public class BinaryTree<T> {
 
 	/**
 	 * Gets node count in a level
-	 * @param the number of level 
+	 * 
+	 * @param the
+	 *            number of level
 	 * @return node count
 	 */
 	public int getNodeCountLevel(int level) {
@@ -76,8 +120,9 @@ public class BinaryTree<T> {
 	}
 
 	/**
-	 * Gets leaf node count 
-	 * @return leaf node count 
+	 * Gets leaf node count
+	 * 
+	 * @return leaf node count
 	 */
 	public int getLeafNodeCount() {
 		return getLeafNodeCount(root);
@@ -85,11 +130,37 @@ public class BinaryTree<T> {
 
 	/**
 	 * compare two binary tree structure
+	 * 
 	 * @param otherTree
 	 * @return
 	 */
 	public boolean compareStructure(BinaryTreeNode<T> otherTree) {
 		return compareStructure(root, otherTree);
+	}
+
+	public BinaryTreeNode<T> find(T data) {
+		return find(root, data);
+	}
+
+	private BinaryTreeNode<T> find(BinaryTreeNode<T> root, T data) {
+		if (root == null || data == null) {
+			return null;
+		}
+
+		if (root.getData().equals(data)) {
+			return root;
+		} else {
+			BinaryTreeNode<T> node = find(root.getLeftRoot(), data);
+			if (node != null) {
+				return node;
+			}
+
+			node = find(root.getRightRoot(), data);
+			if (node != null) {
+				return node;
+			}
+			return null;
+		}
 	}
 
 	private void preorderTraverse(BinaryTreeNode<?> root) {

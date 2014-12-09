@@ -157,10 +157,19 @@ public class BinaryTree<T> {
 		mirror(root);
 		return this;
 	}
-
+	/**
+	 * remove all node and sets root to null
+	 */
 	public void clear() {
 		clear(root);
 		root = null;
+	}
+	/**
+	 * Is completed binary tree.
+	 * @return
+	 */
+	public boolean isCompletedBinaryTree() {
+		return isCompletedBinaryTree(root);
 	}
 	private BinaryTreeNode<T> find(BinaryTreeNode<T> root, T data) {
 		if (root == null || data == null) {
@@ -317,5 +326,35 @@ public class BinaryTree<T> {
 		root.setLeftRoot(null);
 		root.setRightRoot(null);
 		root = null;
+	}
+	
+	private boolean isCompletedBinaryTree(BinaryTreeNode<T> root) {
+		boolean mustNoChild = false;
+		if (root == null) {
+			return false;
+		}
+		Queue<BinaryTreeNode<T>> queue = new LinkedList<BinaryTreeNode<T>>();
+		queue.offer(root);
+		while (!queue.isEmpty()) {
+			BinaryTreeNode<T> node = queue.poll();
+			if (node.hasLeftRoot()) {
+				if (mustNoChild) {
+					return false;
+				}
+				queue.offer(node.getLeftRoot());
+			} else {
+				mustNoChild = true;
+			}
+			
+			if (node.hasRightRoot()) {
+				if (mustNoChild) {
+					return false;
+				}
+				queue.offer(node.getRightRoot());
+			} else {
+				mustNoChild = true;
+			}
+		}
+		return true;
 	}
 }

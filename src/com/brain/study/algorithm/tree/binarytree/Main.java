@@ -49,10 +49,11 @@ public class Main {
 		bt.mirror().levelTraverse();
 		System.out.println("==");
 		bt.mirror().levelTraverse();
+	
+		System.out.println("the tree is complete binary tree? " + bt.isCompletedBinaryTree());
 		bt.clear();
 		System.out.println("===");
 		bt.levelTraverse();
-	
 
 	}
 }

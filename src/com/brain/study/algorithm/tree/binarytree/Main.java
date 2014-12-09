@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 /**
  * Main
+ * 
  * @author Brain
  * @date 2014-12-9
  */
@@ -33,7 +34,7 @@ public class Main {
 
 		BinaryTree<String> bt = new BinaryTree<String>();
 		bt.setVisitListener(new NodeVisitListener() {
-			
+
 			@Override
 			public void onVisitNode(BinaryTreeNode<?> node) {
 				System.out.println(node.getData());
@@ -42,7 +43,16 @@ public class Main {
 		bt.buildTree(dataQueue);
 
 		bt.levelTraverse();
-		System.out.println("find(\"7\") " + bt.find("7"));;
-		System.out.println("find(\"10\") " + bt.find("10"));;
+		System.out.println("find(\"7\") " + bt.find("7"));
+		System.out.println("find(\"10\") " + bt.find("10"));
+
+		bt.mirror().levelTraverse();
+		System.out.println("==");
+		bt.mirror().levelTraverse();
+		bt.clear();
+		System.out.println("===");
+		bt.levelTraverse();
+	
+
 	}
 }

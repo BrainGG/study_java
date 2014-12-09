@@ -138,10 +138,30 @@ public class BinaryTree<T> {
 		return compareStructure(root, otherTree);
 	}
 
+	/**
+	 * find a node by data
+	 * 
+	 * @param data
+	 * @return node
+	 */
 	public BinaryTreeNode<T> find(T data) {
 		return find(root, data);
 	}
 
+	/**
+	 * The exchange all left and right subtree
+	 * 
+	 * @return this tree
+	 */
+	public BinaryTree<T> mirror() {
+		mirror(root);
+		return this;
+	}
+
+	public void clear() {
+		clear(root);
+		root = null;
+	}
 	private BinaryTreeNode<T> find(BinaryTreeNode<T> root, T data) {
 		if (root == null || data == null) {
 			return null;
@@ -272,4 +292,30 @@ public class BinaryTree<T> {
 		}
 	}
 
+	private BinaryTreeNode<T> mirror(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return null;
+		}
+
+		BinaryTreeNode<T> leftRoot = mirror(root.getLeftRoot());
+		BinaryTreeNode<T> rightRoot = mirror(root.getRightRoot());
+
+		root.setLeftRoot(rightRoot);
+		root.setRightRoot(leftRoot);
+		return root;
+	}
+
+	private void clear(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return;
+		}
+
+		clear(root.getLeftRoot());
+		clear(root.getRightRoot());
+
+		root.setData(null);
+		root.setLeftRoot(null);
+		root.setRightRoot(null);
+		root = null;
+	}
 }

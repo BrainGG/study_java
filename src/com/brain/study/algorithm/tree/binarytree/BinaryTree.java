@@ -41,6 +41,7 @@ public class BinaryTree<T> {
 	}
 
 	/**
+	 * Creates a tree by a data queue.
 	 * 
 	 * @param node
 	 * @param dataQueue
@@ -157,6 +158,7 @@ public class BinaryTree<T> {
 		mirror(root);
 		return this;
 	}
+
 	/**
 	 * remove all node and sets root to null
 	 */
@@ -164,13 +166,21 @@ public class BinaryTree<T> {
 		clear(root);
 		root = null;
 	}
+
 	/**
 	 * Is completed binary tree.
+	 * 
 	 * @return
 	 */
 	public boolean isCompletedBinaryTree() {
 		return isCompletedBinaryTree(root);
 	}
+
+	public BinaryTreeNode<T> getLastCommonParent(BinaryTreeNode<T> node1,
+			BinaryTreeNode<T> node2) {
+		return getLastCommonParent(root, node1, node2);
+	}
+
 	private BinaryTreeNode<T> find(BinaryTreeNode<T> root, T data) {
 		if (root == null || data == null) {
 			return null;
@@ -189,6 +199,46 @@ public class BinaryTree<T> {
 				return node;
 			}
 			return null;
+		}
+	}
+
+	private BinaryTreeNode<T> find(BinaryTreeNode<T> root,
+			BinaryTreeNode<T> node) {
+		if (root == null || node == null) {
+			return null;
+		}
+
+		if (root == node) {
+			return root;
+		} else {
+			BinaryTreeNode<T> result = find(root.getLeftRoot(), node);
+			if (result != null) {
+				return result;
+			}
+
+			result = find(root.getRightRoot(), node);
+			if (result != null) {
+				return result;
+			}
+			return null;
+		}
+	}
+
+	private BinaryTreeNode<T> getLastCommonParent(BinaryTreeNode<T> root,
+			BinaryTreeNode<T> node1, BinaryTreeNode<T> node2) {
+		if (find(root.getLeftRoot(), node1) != null) {
+			if (find(root.getRightRoot(), node2) != null) {
+				return root;
+			} else {
+				return getLastCommonParent(root.getLeftRoot(), node1, node2);
+			}
+
+		} else {
+			if (find(root.getLeftRoot(), node2) != null) {
+				return root;
+			} else {
+				return getLastCommonParent(root.getRightRoot(), node1, node2);
+			}
 		}
 	}
 
@@ -327,7 +377,7 @@ public class BinaryTree<T> {
 		root.setRightRoot(null);
 		root = null;
 	}
-	
+
 	private boolean isCompletedBinaryTree(BinaryTreeNode<T> root) {
 		boolean mustNoChild = false;
 		if (root == null) {
@@ -345,7 +395,7 @@ public class BinaryTree<T> {
 			} else {
 				mustNoChild = true;
 			}
-			
+
 			if (node.hasRightRoot()) {
 				if (mustNoChild) {
 					return false;

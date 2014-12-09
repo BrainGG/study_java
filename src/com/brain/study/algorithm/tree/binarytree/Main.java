@@ -50,6 +50,8 @@ public class Main {
 		System.out.println("==");
 		bt.mirror().levelTraverse();
 	
+		System.out.println("common parent: "
+		+ bt.getLastCommonParent(bt.find("4"), bt.find("5")).getData());
 		System.out.println("the tree is complete binary tree? " + bt.isCompletedBinaryTree());
 		bt.clear();
 		System.out.println("===");

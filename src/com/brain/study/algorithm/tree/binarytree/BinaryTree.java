@@ -4,7 +4,9 @@
 package com.brain.study.algorithm.tree.binarytree;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * BinaryTree
@@ -176,9 +178,101 @@ public class BinaryTree<T> {
 		return isCompletedBinaryTree(root);
 	}
 
+	/**
+	 * Gets last common parent node
+	 * 
+	 * @param node1
+	 * @param node2
+	 * @return common parent node
+	 */
 	public BinaryTreeNode<T> getLastCommonParent(BinaryTreeNode<T> node1,
 			BinaryTreeNode<T> node2) {
 		return getLastCommonParent(root, node1, node2);
+	}
+
+	public void preorderTraverseW() {
+		preorderTraverseW(root);
+	}
+
+	public void inorderTraverseW() {
+		inorderTraverseW(root);
+	}
+
+	public void postorderTraverseW() {
+		postorderTraverseW(root);
+	}
+
+	public Stack<BinaryTreeNode<T>> getPath(
+			BinaryTreeNode<T> node) {
+		if (root == null || node == null) {
+			return null;
+		}
+		
+
+		return path(root, node);
+	}
+
+	private void preorderTraverseW(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return;
+		}
+		Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+		BinaryTreeNode<T> t = root;
+		while (!stack.isEmpty() || t != null) {
+			while (t != null) {
+				visit(t);
+				stack.push(t);
+
+				t = t.getLeftRoot();
+			}
+
+			t = stack.pop().getRightRoot();
+		}
+	}
+
+	private void inorderTraverseW(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return;
+		}
+		Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+		BinaryTreeNode<T> t = root;
+		while (!stack.isEmpty() || t != null) {
+			while (t != null) {
+				stack.push(t);
+
+				t = t.getLeftRoot();
+			}
+			t = stack.pop();
+			visit(t);
+			t = t.getRightRoot();
+		}
+	}
+
+	private void postorderTraverseW(BinaryTreeNode<T> root) {
+		if (root == null) {
+			return;
+		}
+		Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+		BinaryTreeNode<T> cur = null;
+		BinaryTreeNode<T> pre = null;
+		stack.push(root);
+		while (!stack.isEmpty()) {
+			cur = stack.peek();
+		
+			if ((!cur.hasLeftRoot() && !cur.hasRightRoot()) ||
+				(pre != null && (cur.getLeftRoot() == pre || cur.getRightRoot() == pre))) {
+				visit(cur);
+				stack.pop();
+				pre = cur;
+			} else {
+				if (cur.hasRightRoot()) {
+					stack.push(cur.getRightRoot());
+				}
+				if (cur.hasLeftRoot()) {
+					stack.push(cur.getLeftRoot());
+				}
+			}
+		}
 	}
 
 	private BinaryTreeNode<T> find(BinaryTreeNode<T> root, T data) {
@@ -407,4 +501,35 @@ public class BinaryTree<T> {
 		}
 		return true;
 	}
+	
+	
+	private Stack<BinaryTreeNode<T>> path(BinaryTreeNode<T> root, BinaryTreeNode<T> node) {
+		if (root == null) {
+			return null;
+		}
+		Stack<BinaryTreeNode<T>> stack = new Stack<BinaryTreeNode<T>>();
+		BinaryTreeNode<T> t = root;
+		while (!stack.isEmpty() || t != null) {
+			while (t != null) {
+				stack.push(t);
+				if (t == node) {
+					return stack;
+				}
+
+				t = t.getLeftRoot();
+			}
+			
+			t = stack.peek();
+
+			if (t.isVisited()) {
+				stack.pop();
+			} else {
+				t.setVisited(true);
+			}
+			t = t.getRightRoot();
+		}
+		
+		return null;
+	}
+
 }

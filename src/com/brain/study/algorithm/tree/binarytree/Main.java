@@ -4,6 +4,7 @@
 package com.brain.study.algorithm.tree.binarytree;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * Main
@@ -44,18 +45,25 @@ public class Main {
 
 		bt.levelTraverse();
 		System.out.println("find(\"7\") " + bt.find("7"));
-		System.out.println("find(\"10\") " + bt.find("10"));
-
-		bt.mirror().levelTraverse();
-		System.out.println("==");
-		bt.mirror().levelTraverse();
-	
-		System.out.println("common parent: "
-		+ bt.getLastCommonParent(bt.find("4"), bt.find("5")).getData());
-		System.out.println("the tree is complete binary tree? " + bt.isCompletedBinaryTree());
-		bt.clear();
-		System.out.println("===");
-		bt.levelTraverse();
+		Stack<BinaryTreeNode<String>> stack = bt.getPath(bt.find("8"));
+		if (stack != null) {
+			while(!stack.isEmpty()) {
+				System.out.println(stack.pop().getData());
+			}
+		}
+//		System.out.println("find(\"7\") " + bt.find("7"));
+//		System.out.println("find(\"10\") " + bt.find("10"));
+//
+//		bt.mirror().levelTraverse();
+//		System.out.println("==");
+//		bt.mirror().levelTraverse();
+//	
+//		System.out.println("common parent: "
+//		+ bt.getLastCommonParent(bt.find("4"), bt.find("5")).getData());
+//		System.out.println("the tree is complete binary tree? " + bt.isCompletedBinaryTree());
+//		bt.clear();
+//		System.out.println("===");
+//		bt.levelTraverse();
 
 	}
 }

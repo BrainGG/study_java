@@ -13,12 +13,12 @@ public class BinaryTreeNode<T> {
 	private T data;
 	private BinaryTreeNode<T> leftRoot;
 	private BinaryTreeNode<T> rightRoot;
+	private boolean isVisited;
 
 	/**
 	 * 
 	 */
 	public BinaryTreeNode() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public BinaryTreeNode(T data) {
@@ -62,6 +62,14 @@ public class BinaryTreeNode<T> {
 
 	public boolean hasRightRoot() {
 		return this.rightRoot != null;
+	}
+
+	public void setVisited(boolean b) {
+		isVisited = b;
+	}
+	
+	public boolean isVisited() {
+		return isVisited;
 	}
 
 }
